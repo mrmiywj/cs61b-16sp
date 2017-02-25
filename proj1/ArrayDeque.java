@@ -38,6 +38,9 @@ public class ArrayDeque<Item> {
         array[p] = null;
         size -= 1;
         head = (p + 1) & (array.length - 1);
+        if (size <= array.length / 2 && array.length > 8) {
+            halfCapacity();
+        }
         return item;
     }
 
@@ -57,6 +60,22 @@ public class ArrayDeque<Item> {
         array = (Item[]) a;
         head = 0;
         tail = n;
+    }
+
+    private void halfCapacity() {
+        assert size <= array.length / 2;
+        int newCapacity = array.length >> 1;
+        int n = size;
+        Object[] a = new Object[newCapacity];
+        if (head < tail) {
+            System.arraycopy(array, head, a, 0, tail - head);
+        } else {
+            System.arraycopy(array, head, a, 0, array.length - head);
+            System.arraycopy(array, 0, a, array.length - head, tail);
+        }
+        array = (Item[]) a;
+        head = 0;
+        tail = size;
     }
 
     public void addFirst(Item item) {
@@ -84,6 +103,9 @@ public class ArrayDeque<Item> {
         array[t] = null;
         size -= 1;
         tail = t;
+        if (size <= array.length /2 && array.length > 4) {
+            halfCapacity();
+        }
         return item;
     }
 

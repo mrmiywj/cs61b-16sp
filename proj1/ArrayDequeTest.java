@@ -116,11 +116,41 @@ public class ArrayDequeTest {
         printTestStatus(passed);
     }
 
+    public static void halfSizeTest() {
+        System.out.println("Running halfSizing test");
+        ArrayDeque<Integer> s = new ArrayDeque<Integer>();
+        s.addFirst(5);
+        s.addLast(6);
+        s.addLast(7);
+        s.addFirst(4);
+        s.addFirst(3);
+        s.addFirst(2 );
+        s.addFirst(1);
+        s.addFirst(0);
+        s.addLast(8);
+        s.addLast(9);
+        s.addLast(10);
+        boolean passed = (s.removeFirst() == 0);
+        passed = (s.removeFirst() == 1) && passed;
+        passed = (s.removeFirst() == 2) && passed;
+        passed = (s.removeFirst() == 3) && passed;
+        passed = (s.removeFirst() == 4) && passed;
+        passed = (s.removeFirst() == 5) && passed;
+        passed = (s.removeLast() == 10) && passed;
+        passed = (s.removeLast() == 9) && passed;
+        passed = (s.removeLast() == 8) && passed;
+        passed = (s.removeLast() == 7) && passed;
+        passed = (s.removeLast() == 6) && passed;
+        passed = (s.size() == 0) && passed;
+        printTestStatus(passed);
+    }
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
         getTest();
         resizeTest();
+        halfSizeTest();
     }
 }
